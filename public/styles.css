@@ -8,3 +8,14 @@
 @media(max-width:700px){.hero-description,.step p,.section-intro,.care-copy>p:not(.eyebrow),.device-description,.audience-panel,.faq-list details>p{font-size:14px}.situation p,.feature-list p,.connect-copy>p:not(.eyebrow),.faq-heading>p:not(.eyebrow){font-size:13px}.audience-panel{min-height:76px}.hero .button{font-size:12px}.hero .text-button{font-size:11px}.form-intro,.form-field label{font-size:12px}.form-result>p{font-size:14px}.demo-form-note{font-size:10px}.benefit-strip strong{font-size:13px}.benefit-strip small{font-size:12px}.hero-note{font-size:11px}.situation.small{min-height:215px}}
 @media(max-width:375px){.hero-actions{gap:12px}.hero .button{font-size:11px;padding-inline:13px}.hero .text-button{font-size:10px}.form-card h3{font-size:17px}}
 .button{background:#c04d3c}
+/* Give the shorter copy room to breathe without stretching the cards. */
+#how{border-top:1px solid var(--line);padding-top:72px}
+.situation.large{min-height:200px}.situation.small{min-height:145px}
+.situation.large .scenario-icon{top:69px}
+.feature-list{margin-top:28px}.feature-list li{align-items:center;margin-block:20px}
+.feature-list strong{font-size:13px;font-weight:600}
+.faq-heading .text-link{margin-top:24px}
+#consultation-form{margin-top:24px}
+@media(max-width:700px){#how{padding-top:48px}.situation.large{min-height:190px}.situation.small{min-height:140px}.situation.large .scenario-icon{top:72px}.audience-panel{min-height:76px}}
+@media(min-width:701px){.step p{min-height:52px}}
+@media(max-width:375px){.situation.large .scenario-icon{right:20px}.situation.large .scenario-icon svg{width:45px;height:45px}}
