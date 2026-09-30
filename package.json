@@ -1,0 +1,1 @@
+{"name":"ryadom-panic-button","version":"1.0.0","private":true,"type":"module","scripts":{"dev":"node tools/server.mjs","build":"node tools/build.mjs","check":"node --check public/app.js"}}

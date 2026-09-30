@@ -1,0 +1,21 @@
+import {spawn} from 'node:child_process';
+let input='';
+if(process.stdin.isTTY) process.stdin.setRawMode(true);
+process.stdin.setEncoding('utf8');
+process.stdin.on('data',chunk=>{
+  input+=chunk;
+  const boundary=input.search(/[\r\n]/);
+  if(boundary<0) return;
+  process.stdin.removeAllListeners('data');
+  const credential=JSON.parse(input.slice(0,boundary));
+  input='';
+  if(credential.auth_mode!=='http_extra_header') throw new Error('Unsupported source authentication mode');
+  const env={...process.env,GIT_TERMINAL_PROMPT:'0',GIT_TRACE:'0',GIT_TRACE_CURL:'0',GIT_CURL_VERBOSE:'0',GIT_CONFIG_COUNT:'2',GIT_CONFIG_KEY_0:'http.extraHeader',GIT_CONFIG_VALUE_0:'Authorization: Bearer '+credential.token,GIT_CONFIG_KEY_1:'credential.helper',GIT_CONFIG_VALUE_1:''};
+  for(const key of Object.keys(env)) if(/^GIT_(TRACE|CURL_VERBOSE)/.test(key)) delete env[key];
+  const git=spawn('git',['push',credential.remote_url,'HEAD:refs/heads/'+credential.branch],{env,stdio:['ignore','pipe','pipe']});
+  const safe=chunk=>process.stdout.write(chunk.toString().split(credential.token).join('[redacted]'));
+  git.stdout.on('data',safe);git.stderr.on('data',safe);
+  git.on('error',error=>{console.error(error.message);process.exit(1)});
+  git.on('close',code=>process.exit(code??1));
+});
+console.log('Awaiting ephemeral repository credential on stdin.');
